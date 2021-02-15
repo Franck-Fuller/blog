@@ -5,11 +5,13 @@ import firebase from 'firebase';
 
 @Injectable()
 export class PostService {
-  
-  private posts : Post[]
-  postsSubject : Subject<Post[]>;
+ 
+  private posts : Post[] ;
+  postsSubject : Subject<Post[]> = new Subject<Post[]>();
 
-  constructor() { }
+  constructor() { 
+    this.getPostsFromServer();
+  }
 
   emitPosts(){
     this.postsSubject.next(this.posts);
@@ -25,6 +27,8 @@ export class PostService {
 
   savePostToServer(){
     firebase.database().ref('/posts').set(this.posts);
+    console.log("Enregistrement terminé !");
+    
   }
 
   getPostsFromServer(){
@@ -45,5 +49,18 @@ export class PostService {
     this.posts.splice(postIndexToRemove, 1);
     this.savePostToServer();
     this.emitPosts;
+  }
+
+  updatePost(post: Post){
+    this.posts = this.posts.map<Post>( (postEl) => {
+      if( postEl === post){
+        return post;
+      }
+      else{
+        return postEl;
+      }
+    });
+    this.savePostToServer();
+    this.emitPosts();
   }
 }
