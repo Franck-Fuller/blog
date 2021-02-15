@@ -1,0 +1,9 @@
+<li [ngClass] ="{'list-group-item' : true,
+                ' list-group-item-success' : item.loveIts &gt; 0,
+                'list-group-item-danger' : item.loveIts &lt; 0 }">
+    <h2> {{ item.title}} </h2>
+    <em [ngClass] = "{ 'text-left' : true}"> {{ item.created_at}} </em>
+    <h4> {{ item.content}}</h4>
+    <button [ngClass]="{'btn btn-success' : true}">Love it</button>
+    <button [ngClass]="{'btn btn-danger' : true }"> Don't love it</button>
+</li>
