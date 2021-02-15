@@ -2,8 +2,8 @@
                 ' list-group-item-success' : item.loveIts &gt; 0,
                 'list-group-item-danger' : item.loveIts &lt; 0 }">
     <h2> {{ item.title}} </h2>
-    <em [ngClass] = "{ 'text-left' : true}"> {{ item.created_at}} </em>
-    <h4> {{ item.content}}</h4>
-    <button [ngClass]="{'btn btn-success' : true}">Love it</button>
-    <button [ngClass]="{'btn btn-danger' : true }"> Don't love it</button>
+    <p class="text-right "> {{ item.created_at | date: 'short'}} </p>
+    <p class="text-justify"> {{ item.content}}</p>
+    <button class="btn btn-success" (click)="onLike()">Love it</button>
+    <button class="btn btn-danger" (click)="onDislike()"> Don't love it</button>
 </li>
